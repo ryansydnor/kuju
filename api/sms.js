@@ -1,5 +1,7 @@
-const twilio = require('../twilio');
-const openai = require('../openai');
+import twilio from '../twilio';
+import openai from '../openai';
+// const twilio = require('../twilio');
+// const openai = require('../openai');
 
 
 export default function handler(req, res) {
