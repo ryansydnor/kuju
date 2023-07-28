@@ -1,7 +1,7 @@
 const twilio = require('../twilio');
 const openai = require('../openai');
 
-module.exports.default = function handler(req, res) {
+module.exports.default = async function handler(req, res) {
   if (req.method === 'GET') { return res.send('getter no getting'); }
   const body = await openai.generatePoem({ prompt: req.body.Body });
   const image = await openai.generateImage({ prompt: body });
