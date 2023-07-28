@@ -5,5 +5,6 @@ export default function handler(req, res) {
   console.log(req.body);
   const twiml = new MessagingResponse();
   twiml.message('The Robots are coming! Head for the hills!');
-  res.type('text/xml').send(twiml.toString());
+  res.setHeader('Content-Type', 'text/xml')
+  res.send(twiml.toString());
 }
