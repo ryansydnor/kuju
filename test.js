@@ -6,7 +6,6 @@ async function main() {
   const body = await openai.generatePoem({ prompt: req.body.Body });
   const image = await openai.generateImage({ prompt: body });
   const mmsXML = await twilio.generateMMSReply({ body, image });
-  console.log({ body, image, mmsXML })
 }
 
 main();
