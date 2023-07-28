@@ -4,19 +4,18 @@ module.exports.default = async function handler(req, res) {
   if (req.method === 'GET') { return res.send('getter no getting'); }
   console.log('sms', req.body);
   if (!req.body.Body) { return res.send('need a word or phrase to start with'); }
-  const mmsXML = await twilio.generateMMSReply({ body: 'making something just for you' });
-  res.status(200);
-  res.setHeader('Content-Type', 'text/xml');
-  res.write(mmsXML);
-  console.log('fetching poem')
   fetch('https://kuju.vercel.app/api/poem', {
     method: 'POST',
     body: JSON.stringify(req.body),
     headers: {'Content-Type': 'application/json'},
-  });
+  });  
+  const mmsXML = twilio.generateMMSReply({ body: 'making something just for you' });
+  res.status(200);
+  res.setHeader('Content-Type', 'text/xml');
+  res.write(mmsXML);
   setTimeout(() => {
-    // just wait for a sec to make sure the fetch finishes
+    // just wait for a sec to make sure the poem fetch finishes
     res.end();
-  }, 250)
+  }, 500)
   
 }
