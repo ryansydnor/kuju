@@ -6,10 +6,11 @@ const factory = {
 
 module.exports = factory;
 
-async function generateMMSReply({ body, image }) {
+async function generateMMSReply({ body, body2, image }) {
   const twiml = new MessagingResponse();
   const message = twiml.message()
   if (body) message.body(body);
+  if (body2) message.body(body2);
   if (image) message.media(image);
   return twiml.toString();
 }
