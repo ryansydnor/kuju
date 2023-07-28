@@ -7,7 +7,7 @@ module.exports.default = async function handler(req, res) {
   const body = await openai.generatePoem({ prompt: req.body.Body });
   const mmsXML = await twilio.generateMMSReply({ body, body2: 'making something pretty' });
   res.setHeader('Content-Type', 'text/xml').send(mmsXML);  
-  fetch('/api/image', {
+  fetch('https://kuju.vercel.app/api/image', {
     method: 'POST',
     body: JSON.stringify({ ...req.body, prompt: body }),
   });

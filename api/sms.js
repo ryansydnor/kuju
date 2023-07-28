@@ -6,7 +6,7 @@ module.exports.default = async function handler(req, res) {
   if (!req.body.Body) { return res.send('need a word or phrase to start with'); }
   const mmsXML = await twilio.generateMMSReply({ body: 'making something just for you' });
   res.setHeader('Content-Type', 'text/xml').send(mmsXML);
-  fetch('/api/poem', {
+  fetch('https://kuju.vercel.app/api/poem', {
     method: 'POST',
     body: JSON.stringify(req.body),
   });
