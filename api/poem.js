@@ -10,11 +10,13 @@ module.exports.default = async function handler(req, res) {
   res.setHeader('Content-Type', 'text/xml');
   res.write(mmsXML);
   console.log('fetching image')
-  const fetchRes = await fetch('https://kuju.vercel.app/api/image', {
+  fetch('https://kuju.vercel.app/api/image', {
     method: 'POST',
     body: JSON.stringify({ ...req.body, prompt: body }),
     headers: {'Content-Type': 'application/json'}
   });
-  console.log(fetchRes)
-  res.end();
+  setTimeout(() => {
+    // just wait for a sec to make sure the fetch finishes
+    res.end();
+  }, 250)
 }
