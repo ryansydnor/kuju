@@ -1,7 +1,11 @@
+import { sql } from "@vercel/postgres";
 const twilio = require('../twilio');
 
 module.exports.default = async function handler(req, res) {
-  if (req.method === 'GET') { return res.send('getter no getting'); }
+  if (req.method === 'GET') { 
+    const { rows } = await sql`SELECT * FROM users;`;
+    return res.send(rows);
+  }
   console.log('sms', req.body);
   if (!req.body.Body) { return res.send('need a word or phrase to start with'); }
   fetch('https://kuju.vercel.app/api/poem', {
