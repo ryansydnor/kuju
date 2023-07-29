@@ -1,9 +1,11 @@
 const twilio = require('twilio');
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const { MessagingResponse } = twilio.twiml;
 
 const factory = {
   generateMMSReply,
   sendMMS,
+  getImageUrl,
 };
 
 module.exports = factory;
@@ -17,14 +19,18 @@ function generateMMSReply({ body, image }) {
 }
 
 async function sendMMS({ to, body, image }) {
-  const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
   const message = {
    from: process.env.TWILIO_PHONE_NUMBER,
    to,    
   };
   if (body) message.body = body.substring(0, 160);
   if (image) message.mediaUrl = [image];
-  await client.messages.create(message);
+  return client.messages.create(message);
+}
+
+async function getImageUrl({ messageID }) {
+  const [mediaObj] = await client.messages(messageID).media.list();
+  return `https://api.twilio.com${mediaObj.uri.replace('.json', '')}`;
 }
 
   

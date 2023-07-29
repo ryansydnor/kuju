@@ -14,10 +14,10 @@ async function generatePoem({ prompt }) {
   const poemRes = await openai.createChatCompletion({
     model: 'gpt-4',
     messages: [
-      { role: 'system', content: 'You are a writer. You never use more than 160 characters. You write based on very short prompts. You create short stories and poems.' },
+      { role: 'system', content: 'You are a writer. You use 140 characters or less. You write a mysterious and engaging short story based on a prompt.' },
       { role: 'user', content: prompt },
     ],
-    temperature: 1.15,
+    temperature: 1.1,
   });
   return poemRes.data.choices[0].message.content;
 }
